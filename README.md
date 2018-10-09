@@ -6,7 +6,7 @@ Chaque VM a été configurée avec une `~/.kube/config` spécifique à chaque é
 
 Pour se connecter : 
 ```
-ssh -i "hackathon-ec2-tp.pem" [URL VM GROUPE] 
+ssh -i "hackathon-ec2-tp.pem" ec2-user@[URL VM GROUPE] 
 ```
 | Equipe | IP Machine Virtuelle AWS |
 |------|-------|
