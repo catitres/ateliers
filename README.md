@@ -39,3 +39,69 @@ ssh -i "hackathon-ec2-tp.pem" ec2-user@[URL VM GROUPE]
 | packapp10 | https://s3-eu-west-1.amazonaws.com/hackathon-2018-deployment-templates/template-team-deployment-packapp10.yml |
 | packapp11 | https://s3-eu-west-1.amazonaws.com/hackathon-2018-deployment-templates/template-team-deployment-packapp11.yml |
 | packapp12 | https://s3-eu-west-1.amazonaws.com/hackathon-2018-deployment-templates/template-team-deployment-packapp12.yml |
+
+## Fichiers source
+
+**monapp-deployment.yaml**
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monapp-deployment
+  namespace: packappXX
+spec:
+  selector:
+    matchLabels:
+      app: monapp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: monapp
+    spec:
+      containers:
+      - name: monapp
+        image: registry.hackathon-container.com/packappXX/monapp:1.0
+        ports:
+        - containerPort: 80
+      imagePullSecrets:
+      - name: registry
+```
+
+**monapp-service.yaml**
+```
+apiVersion: v1
+kind: Service
+metadata:
+  name: monapp-svc
+  namespace: packappXX
+spec:
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+    protocol: TCP
+  selector:
+    app: monapp
+```
+
+**monapp-ingress.yaml**
+```
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: monapp
+  namespace: packappXX
+spec:
+  rules:
+  - host: monappXX.hackathon-container.com
+    http:
+      paths:
+      - backend:
+          serviceName: monapp-svc
+          servicePort: 80
+  tls:
+  - hosts:
+    - monappXX.hackathon-container.com
+```
