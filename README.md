@@ -4,6 +4,10 @@
 
 Chaque VM a été configurée avec une `~/.kube/config` spécifique à chaque équipe. 
 
+Pour se connecter : 
+```
+ssh -i "hackathon-ec2-tp.pem" [URL VM GROUPE] 
+```
 | Equipe | IP Machine Virtuelle AWS |
 |------|-------|
 | packapp01 | ec2-52-210-144-207.eu-west-1.compute.amazonaws.com |
