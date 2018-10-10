@@ -105,3 +105,22 @@ spec:
   - hosts:
     - monappXX.hackathon-container.com
 ```
+
+**PeristentVolumeClaim**
+```
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: packapp00-disk
+  namespace: packapp05
+spec:
+  storageClassName: local
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      team: packapp00
+  resources:
+    requests:
+      storage: 3Gi
+```
